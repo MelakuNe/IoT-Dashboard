@@ -6,7 +6,7 @@ import dash_html_components as html
 import pandas as pd
 
 app_path = str(pathlib.Path(__file__).parent.resolve())
-df = pd.read_csv(os.path.join(app_path, os.path.join("data", "temperature.csv")))
+df = pd.read_csv(os.path.join(app_path, os.path.join("data", "sensor.csv")))
 
 
 app = dash.Dash(__name__, url_base_pathname='/dashboard/')
@@ -25,7 +25,7 @@ def build_banner():
             html.Div(
                 className='banner-text',
                 children=[
-                    html.H5('Temperature Measurment'),
+                    html.H5('Temperature and Humidity Sensor Reading'),
                 ],
             ),
         ],
@@ -40,7 +40,13 @@ def build_graph():
                 {
                     'x': df['time'][:50],
                     'y': df[' temperature'][:50],
-                    'name': 'temperature',
+                    'name': 'Temperature',
+                    'marker': {'size': 12}
+                },
+                 {
+                    'x': df['time'][:50],
+                    'y': df['humidity'][:50],
+                    'name': 'Humidity',
                     'marker': {'size': 12}
                 },
             ],
@@ -70,3 +76,4 @@ app.layout = html.Div(
 
 if __name__ == '__main__':
     app.run(debug=True, port=8050)
+    
