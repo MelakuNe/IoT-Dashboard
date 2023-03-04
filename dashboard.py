@@ -6,7 +6,8 @@ import dash_html_components as html
 import pandas as pd
 
 app_path = str(pathlib.Path(__file__).parent.resolve())
-df = pd.read_csv(os.path.join(app_path, os.path.join("data", "smarthome.csv")))
+df = pd.read_csv(os.path.join(app_path, os.path.join("data", "temperature.csv")))
+
 
 app = dash.Dash(__name__, url_base_pathname='/dashboard/')
 server = app.server
@@ -24,7 +25,7 @@ def build_banner():
             html.Div(
                 className='banner-text',
                 children=[
-                    html.H5('Enegry Consumption'),
+                    html.H5('Temperature Measurment'),
                 ],
             ),
         ],
@@ -37,33 +38,9 @@ def build_graph():
         figure={
             'data': [
                 {
-                    'x': df['Batch'][:50],
-                    'y': df['Techniques'][:50],
-                    'name': 'Techniques',
-                    'marker': {'size': 12}
-                },
-                {
-                    'x': df['Batch'][:50],
-                    'y': df['Workplace'][:50],
-                    'name': 'Workplace',
-                    'marker': {'size': 12}
-                },
-                {
-                    'x': df['Batch'][:50],
-                    'y': df['Garage'][:50],
-                    'name': 'Garage',
-                    'marker': {'size': 12}
-                },
-                {
-                    'x': df['Batch'][:50],
-                    'y': df['Kitchen'][:50],
-                    'name': 'Kitchen',
-                    'marker': {'size': 12}
-                },
-                {
-                    'x': df['Batch'][:50],
-                    'y': df['Hall'][:50],
-                    'name': 'Hall',
+                    'x': df['time'][:50],
+                    'y': df[' temperature'][:50],
+                    'name': 'temperature',
                     'marker': {'size': 12}
                 },
             ],
